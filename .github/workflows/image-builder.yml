@@ -16,6 +16,6 @@ jobs:
           method: jwt
           role: demo
           secrets: |
-            kv/data/ci app_secret | APP_SECRET
+            secret/data/ci app_secret | APP_SECRET
       - name: Build Docker Image
         run: docker build . --file Dockerfile --build-arg app_secret="${{ env.APP_SECRET }}" -t vault-action-exampleapp
