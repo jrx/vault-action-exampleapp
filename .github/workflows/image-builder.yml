@@ -1,0 +1,21 @@
+name: ImageBuilder
+on: push
+jobs:
+  build:
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: Import Secrets
+        uses: hashicorp/vault-action@v2.4.0
+        with:
+          url: https://hcp-vault-dev-public-vault-5a36913b.a3e57834.z1.hashicorp.cloud:8200
+          namespace: admin
+          method: jwt
+          role: demo
+          secrets: |
+            kv/data/ci app_secret | APP_SECRET
+      - name: Build Docker Image
+        run: docker build . --file Dockerfile --build-arg app_secret="${{ env.APP_SECRET }}" -t vault-action-exampleapp
