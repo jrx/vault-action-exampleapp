@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Import Secrets
-        uses: hashicorp/vault-action@v2.4.0
+        uses: hashicorp/vault-action@v2.7.4
         with:
           url: https://hcp-vault-dev-public-vault-352264ba.5b6bbfed.z1.hashicorp.cloud:8200
           namespace: admin
